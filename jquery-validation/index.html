@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Validando formul�rios com JQuery Validation</title>
+    <!-- Inclus�o do jQuery-->
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <!-- Inclus�o do Plugin jQuery Validation-->
+    <script src="http://jqueryvalidation.org/files/dist/jquery.validate.js"></script>
+</head>
+
+<body>
+    
+    <style>
+        .error {
+            color: red;
+            border-color: red;
+        }
+    </style>
+
+    <form id="myform">
+        hahaha
+        <input type="checkbox" name="field1" id="field1" class="form-line"/>
+        <br/>
+        <input type="text" name="field2[]" class="produto"/>
+        <input type="text" name="field2[]" class="produto"/>
+        <br/>
+        <div class="col-md-8">
+            <label>Título</label>
+            <div class="form-group">
+                <div class="form-line">
+                    <input type="text" name="titulo" id="titulo" raria-required="true" class="form-control ignore" minlength="4" maxlength="250"/>
+                </div>
+                <small class="text-danger">ERRO TITULO</small>
+            </div>
+        </div>
+        <input type="submit" />
+    </form>
+
+    <script>
+        $(document).ready(() => {
+            $('#myform').validate({  // initialize the plugin on your form
+                // any rules and/or options
+                submitHandler: (form) => {
+                    alert('valid form submitted')
+                    return false
+                },
+                ignore: ".ignore",
+            })
+
+            $('input[type="text"]').each(function() {
+                // console.log($(this))
+                
+                $(this).rules('add', {
+                    required: true,
+                    // another rule, etc.
+                })
+            })
+            
+            $('input[type="checkbox"]').each(function() {
+                $(this).rules('add', {
+                    required: true,
+                    // another rule, etc.
+                })
+            })
+            
+            $('input[name="field2[]"]').each(function() {
+                console.log($(this))
+                $(this).rules('add', {
+                    required: true,
+                    // another rule, etc.
+                })
+            })
+
+            /*
+            $('#myform').validate({
+                rules: {
+                    'input[type="text"]': {
+                        required: true
+                    },
+                    'text': {
+                        required: true
+                    },
+                    'checkbox': {
+                        required: true
+                    },
+                    'gender': {
+                        required: true
+                    },
+                    // field1: {
+                    //     required: true,
+                    //     email: true,
+                    //     color: 'red',
+                    // },
+                    'field2[]': {
+                        required: true,
+                        minlength: 5
+                    },
+                    'field2[]': {
+                        required: true,
+                        minlength: 5
+                    },
+                    titulo: {
+                        required: true,
+                    },
+                },
+                messages: {
+                    field1: {
+                        required: "Insira um email válido!"
+                    },
+                    'field2[]': {
+                        required: "Array Field Inválido!"
+                    }
+                },
+                highlight: (input) => {
+                    $(input).addClass('error')
+                },
+                unhighlight: (input) => {
+                    $(input).removeClass('error')
+                },
+                submitHandler: (form) => {
+                    alert('valid form submitted')
+                    return false
+                },
+                lang: 'pt',
+                ignore: ".ignore",
+            })
+            */
+        })
+        
+        $.extend(jQuery.validator.messages, {
+            required: "Campo Obrigatório",
+            remote: "Campo Inválido",
+            email: "Email Inválido",
+            url: "URL Inválida",
+            date: "Data Inválida",
+            dateISO: "Data (ISO) Inválida",
+            number: "Número Inválido",
+            digits: "Somente Números",
+            creditcard: "Cartão de Crédito Inválido!",
+            equalTo: "Valores Não Conferem",
+            accept: "Insira um valor com uma extensão válida",
+            maxlength: jQuery.validator.format("Máximo {0} caracteres."),
+            minlength: jQuery.validator.format("Mínimo {0} caracteres."),
+            rangelength: jQuery.validator.format("O Valor precisa estar entre {0} e {1} caracteres."),
+            range: jQuery.validator.format("Valores aceitos entre {0} e {1}."),
+            max: jQuery.validator.format("O valor precisa ser menor ou igual a {0}."),
+            min: jQuery.validator.format("O valor precisa ser maior ou igual a {0}.")
+        })
+    </script>
+
+
+</body>
+
+</html>
